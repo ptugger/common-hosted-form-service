@@ -114,11 +114,11 @@ export function getAvailableDates(
 
   let substartDate = moment(submstartDate);
   repeatUntil = moment(repeatUntil);
-  var calculatedsubcloseDate = getCalculatedCloseSubmissionDate(substartDate,keepAliveFor,keepAliveForInterval,allowLateTerm,allowLateInterval,term,interval,repeatUntil,scheduleType,closeDate);
-  var availableDates = [];
+  let calculatedsubcloseDate = getCalculatedCloseSubmissionDate(substartDate,keepAliveFor,keepAliveForInterval,allowLateTerm,allowLateInterval,term,interval,repeatUntil,scheduleType,closeDate);
+  let availableDates = [];
   if(calculatedsubcloseDate && term && interval) {
     while (substartDate.isBefore(calculatedsubcloseDate)) {
-      var newDate = substartDate.clone();
+      let newDate = substartDate.clone();
       if(substartDate.isBefore(repeatUntil)){
         availableDates.push(Object({
           startDate:substartDate.format('YYYY-MM-DD HH:MM:SS'),
@@ -131,7 +131,7 @@ export function getAvailableDates(
   }
 
   if((term == null && interval == null) && (keepAliveFor && keepAliveForInterval)){
-    var newDates = substartDate.clone();
+    let newDates = substartDate.clone();
     availableDates.push(Object({
       startDate:substartDate.format('YYYY-MM-DD HH:MM:SS'),
       closeDate:newDates.add(keepAliveFor,keepAliveForInterval).format('YYYY-MM-DD HH:MM:SS'),
@@ -147,16 +147,16 @@ export function getAvailableDates(
  * @function getCalculatedCloseSubmissionDate
  * Get calculated Close date for a Form schedule setting with the given scenario
  *
- * @param {Object[]} openDate An object of Moment JS date
- * keepOpenForTerm
- * keepOpenForInterval
+ * @param {Object[]} openDate Form's open date (An object of Moment JS date)
+ * @param {Integer} keepOpenForTerm Number of days/weeks/months etc that used for Open interval of form
+ * @param {String} keepOpenForInterval String that contain interval type like days/weeks/months etc
  * @param {Integer} term An integer of number of Days/Weeks OR Years
  * @param {String} interval A string of days,Weeks,months
- * @param {Integer} allowLateTerm An integer of number of Days/Weeks OR Years
- * @param {String} allowLateInterval A string of days,Weeks,months
- * @param {Integer} repeatSubmissionTerm An integer of number of Days/Weeks OR Years
- * @param {String} repeatSubmissionInterval A string of days,Weeks,months
- * @param {Object[]} repeatUntil An object of Moment JS date
+ * @param {Integer} allowLateTerm An integer of number of Days/Weeks OR Years that used for Allow late submission
+ * @param {String} allowLateInterval A string of days,Weeks,months that used for Allow late submission
+ * @param {Integer} repeatSubmissionTerm An integer of number of Days/Weeks OR Years that used for reapeatition of Submissions
+ * @param {String} repeatSubmissionInterval A string of days,Weeks,months that used for reapeatition of Submissions
+ * @param {Object[]} repeatUntil An object of Moment JS date that used for actually end of Repeatition of submission
  * @param {Object[]} closeDate and object of moment JS date
  * @returns {Object[]} An object of Moment JS date
  */
