@@ -70,6 +70,10 @@ routes.get('/:formId/versions/:formVersionId/submissions', apiAccess, hasFormPer
   await controller.listSubmissions(req, res, next);
 });
 
+routes.post('/:formId/versions/:formVersionId/bulksubmissions', apiAccess, hasFormPermissions([P.FORM_READ, P.SUBMISSION_CREATE]), async (req, res, next) => {
+  await controller.createBulkSubmission(req, res, next);
+});
+
 routes.post('/:formId/versions/:formVersionId/submissions', apiAccess, hasFormPermissions([P.FORM_READ, P.SUBMISSION_CREATE]), async (req, res, next) => {
   await controller.createSubmission(req, res, next);
 });
