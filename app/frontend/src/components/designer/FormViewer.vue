@@ -495,7 +495,7 @@ export default {
   },
   async created() {
     if (this.submissionId && this.isDuplicate) { //Run when make new submission from existing one called.
-      await this.getFormSchema(); //We need this to be called as well, because we need latest version of form
+      await this.getFormSchema(); // We need this to be called as well, because we need latest version of form
       await this.getFormData();
     } else if(this.submissionId && !this.isDuplicate) {
       await this.getFormData();
