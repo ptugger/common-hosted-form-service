@@ -61,9 +61,27 @@ const service = {
       obj.enableStatusUpdates = data.enableStatusUpdates;
       obj.enableSubmitterDraft = data.enableSubmitterDraft;
       obj.createdBy = currentUser.usernameIdp;
-      obj.schedule = data.schedule;
+      // obj.schedule = data.schedule;
       obj.reminder = data.reminder;
       obj.enableCopyExistingSubmission = data.enableCopyExistingSubmission;
+
+      obj.schEnabled = data.schEnabled,
+      obj.schType = data.schType,
+      obj.schOpenSubmissionDateTime = data.schOpenSubmissionDateTime,
+      obj.schCloseSubmissionDateTime = data.schCloseSubmissionDateTime,
+      obj.schClosingMessageEnabled = data.schClosingMessageEnabled,
+      obj.schClosingMessage = data.schClosingMessage,
+      obj.schKeepOpenForTerm = data.schKeepOpenForTerm,
+      obj.schKeepOpenForInterval = data.schKeepOpenForInterval,
+      
+      obj.schRepeatEnabled = data.schRepeatEnabled,
+      obj.schRepeatEveryTerm = data.schRepeatEveryTerm,
+      obj.schRepeatEveryIntervalType = data.schRepeatEveryIntervalType,
+      obj.schRepeatUntil = data.schRepeatUntil,
+
+      obj.schLateSubmissionsEnabled = data.schLateSubmissionsEnabled,
+      obj.schLateSubmissionsForNextTerm = data.schLateSubmissionsForNextTerm,
+      obj.schLateSubmissionsForNextInterval = data.schLateSubmissionsForNextInterval,
 
       await Form.query(trx).insert(obj);
       if (data.identityProviders && Array.isArray(data.identityProviders) && data.identityProviders.length) {
@@ -127,11 +145,29 @@ const service = {
         enableStatusUpdates: data.enableStatusUpdates,
         enableSubmitterDraft: data.enableSubmitterDraft,
         updatedBy: currentUser.usernameIdp,
-        schedule: data.schedule,
+        // schedule: {},
         reminder: data.reminder,
-        enableCopyExistingSubmission: data.enableCopyExistingSubmission
-      };
+        enableCopyExistingSubmission: data.enableCopyExistingSubmission,
+        
+        schEnabled: data.schEnabled,
+        schType: data.schType,
+        schOpenSubmissionDateTime: data.schOpenSubmissionDateTime,
+        schCloseSubmissionDateTime: data.schCloseSubmissionDateTime,
+        schClosingMessageEnabled: data.schClosingMessageEnabled,
+        schClosingMessage: data.schClosingMessage,
+        schKeepOpenForTerm: data.schKeepOpenForTerm,
+        schKeepOpenForInterval: data.schKeepOpenForInterval,
+        
+        schRepeatEnabled: data.schRepeatEnabled,
+        schRepeatEveryTerm: data.schRepeatEveryTerm,
+        schRepeatEveryIntervalType: data.schRepeatEveryIntervalType,
+        schRepeatUntil: data.schRepeatUntil,
 
+        schLateSubmissionsEnabled: data.schLateSubmissionsEnabled,
+        schLateSubmissionsForNextTerm: data.schLateSubmissionsForNextTerm,
+        schLateSubmissionsForNextInterval: data.schLateSubmissionsForNextInterval,
+      };
+      
       await Form.query(trx).patchAndFetchById(formId, upd);
 
       // remove any existing links to identity providers, and the updated ones
@@ -215,7 +251,7 @@ const service = {
         // there are some configs that we don't want returned here...
         delete form.submissionReceivedEmails;
         //Lets Replace the original schedule Object as it should not expose schedule data to FE users.
-        form.schedule = checkIsFormExpired(form.schedule);
+        form.schedule = checkIsFormExpired(form);
         return form;
       });
   },

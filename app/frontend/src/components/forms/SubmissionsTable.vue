@@ -197,7 +197,7 @@ export default {
         { text: 'Submitter', align: 'start', value: 'submitter' },
       ];
 
-      if(this.form && this.form.schedule && this.form.schedule.enabled){
+      if(this.form && this.form.schEnabled){
         //push new header for late submission if Form is setup for scheduling
         headers = [...headers,{ text: 'Late Submission', align: 'start', value: 'lateEntry' }];
       }

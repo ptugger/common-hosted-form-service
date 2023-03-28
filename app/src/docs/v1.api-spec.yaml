@@ -2794,76 +2794,66 @@ components:
             enableSubmitterDraft:
               type: boolean
               example: true
-            schedule:
-              type: Object
-              properties:
-                enabled:
-                  type: boolean
-                  description: Used to indicate if schedule feature enabled or not
-                  example: true
-                scheduleType:
-                  type: string
-                  description: Shows type of Schedule setting choose by form designed. Could be period,closingDate,manual
-                  example: period
-                closingMessage:
-                  type: string
-                  description: This string contain custom closing message message set by form designer that shows on frontend when a form is expired for a particular period.
-                  example: This Form is expired.
-                keepOpenForTerm:
-                  type: string
-                  description: This contain a value that can be used with combination to another key i.e. keepOpenForInterval to calculate a period. Thats tells a form to be keep open for particular period.  40 Days, 3 Weeks, 1 Years etc.
-                  example: '15'
-                keepOpenForInterval:
-                  type: string
-                  description: This contain a value that can be used with combination to another key i.e. keepOpenForTerm to calculate a period. Thats tells a form to be keep open for particular period.  40 Days, 3 Weeks, 1 Years etc.
-                  example: '15'
-                repeatSubmission:
-                  type: Object
-                  properties:
-                    enabled:
-                      type: boolean
-                      description: Used to indicate if repeatition of scheduling a form enabled or not
-                      example: true
-                    everyTerm:
-                      type: string
-                      description: This contain a value that can be used with combination to another key i.e. everyIntervalType to calculate a period. Thats tells a form to be schedule a form repetition after particular period.  40 Days, 3 Weeks, 1 Years etc.
-                      example: '15'
-                    repeatUntil:
-                      type: string
-                      description: Contains end date for repeatition of form schedule.
-                      example: '2023-12-22'
-                    everyIntervalType:
-                      type: string
-                      description: This contain a value that can be used with combination to another key i.e. everyTerm to calculate a period. Thats tells a form to be schedule a form repetition after particular period.  40 Days, 3 Weeks, 1 Years etc.
-                      example: '15'
-                allowLateSubmissions:
-                  type: Object
-                  properties:
-                    enabled:
-                      type: boolean
-                      description: Used to indicate if late submission allowed on a form or not, Will be true if enabled
-                      example: true
-                    forNext:
-                      type: Object
-                      properties:
-                        term:
-                          type: string
-                          description: This contain a value that can be used with combination to another key i.e. intervalType to calculate a period. Thats tells a form to be allowed a late submission for particular period.  40 Days, 3 Weeks, 1 Years etc.
-                        intervalType:
-                          type: string
-                          description: This contain a value that can be used with combination to another key i.e. term to calculate a period. Thats tells a form to be allowed a late submission for particular period.  40 Days, 3 Weeks, 1 Years etc.
-                closingMessageEnabled: 
-                  type: boolean
-                  description: Set to true when custom closing message is enabled
-                  example: true
-                openSubmissionDateTime: 
-                  type: string
-                  description: Contains open date of form schedule system.
-                  example: '2022-12-22'
-                closeSubmissionDateTime:
-                  type: string
-                  description: Contains closing date of form schedule system when type of ScheduleType set to closingDate.
-                  example: '2022-12-22'
+            schEnabled:
+              type: boolean
+              description: Used to indicate if schedule feature enabled or not
+              example: true
+            schType:
+              type: string
+              description: Shows type of Schedule setting choose by form designed. Could be period,closingDate,manual
+              example: period
+            schOpenSubmissionDateTime:
+              type: string
+              description: Contains open date of form schedule system.
+              example: '2023-03-01'
+            schCloseSubmissionDateTime:
+              type: string
+              description: Contains close date of form schedule system.
+              example: '2023-06-15'
+            schClosingMessageEnabled:
+              type: boolean
+              description: Set to true when custom closing message is enabled
+              example: true
+            schClosingMessage:
+              type: string
+              description: This string contain custom closing message message set by form designer that shows on frontend when a form is expired for a particular period.
+              example: 'This form is expired'
+            schKeepOpenForTerm:
+              type: string
+              description: This contain a value that can be used with combination to another key i.e. schKeepOpenForInterval to calculate a period. Thats tells a form to be keep open for particular period.  40 Days, 3 Weeks, 1 Years etc.
+              example: '3'
+            schKeepOpenForInterval:
+              type: string
+              description: This contain a value that can be used with combination to another key i.e. schKeepOpenForTerm to calculate a period. Thats tells a form to be keep open for particular period.  40 Days, 3 Weeks, 1 Years etc.
+              example: 'days'
+            schRepeatEnabled:
+              type: boolean
+              description: Used to indicate if repeatition of scheduling a form enabled or not
+              example: true
+            schRepeatEveryTerm:
+              type: string
+              description: This contain a value that can be used with combination to another key i.e. schRepeatEveryIntervalType to calculate a period. Thats tells a form to be schedule a form repetition after particular period.  40 Days, 3 Weeks, 1 Years etc.
+              example: '3'
+            schRepeatEveryIntervalType:
+              type: string
+              description: This contain a value that can be used with combination to another key i.e. schRepeatEveryTerm to calculate a period. Thats tells a form to be schedule a form repetition after particular period.  40 Days, 3 Weeks, 1 Years etc.
+              example: 'months'
+            schRepeatUntil:
+              type: string
+              description: Contains end date for repeatition of form schedule.
+              example: '2024-03-01'
+            schLateSubmissionsEnabled:
+              type: boolean
+              description: Used to indicate if late submission allowed on a form or not, Will be true if enabled
+              example: true
+            schLateSubmissionsForNextTerm:
+              type: string
+              description: This contain a value that can be used with combination to another key i.e. schLateSubmissionsForNextInterval to calculate a period. Thats tells a form to be allowed a late submission for particular period.  40 Days, 3 Weeks, 1 Years etc.
+              example: '3'
+            schLateSubmissionsForNextInterval:
+              type: string
+              description: This contain a value that can be used with combination to another key i.e. schLateSubmissionsForNextTerm to calculate a period. Thats tells a form to be allowed a late submission for particular period.  40 Days, 3 Weeks, 1 Years etc.
+              example: 'days'
             enableCopyExistingSubmission:
               type: boolean
               example: false

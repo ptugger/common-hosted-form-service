@@ -4,28 +4,23 @@ import { apiKeyService, formService, rbacService, userService} from '@/services'
 import { generateIdps, parseIdps } from '@/utils/transformUtils';
 
 const genInitialSchedule = () => ({
-  'enabled':null,
-  'scheduleType':null,
-  'openSubmissionDateTime': null,
-  'keepOpenForTerm': null,
-  'keepOpenForInterval': null,
-  'closingMessageEnabled':null,
-  'closingMessage': null,
-  'closeSubmissionDateTime': null,
-  'repeatSubmission': {
-    'enabled': null,
-    'repeatUntil': null,
-    'everyTerm': null,
-    'everyIntervalType': null
-
-  },
-  'allowLateSubmissions': {
-    'enabled': null,
-    'forNext': {
-      'term': null,
-      'intervalType': null
-    }
-  }
+  'schEnabled': false,
+  'schType': null,
+  'schOpenSubmissionDateTime': null,
+  'schCloseSubmissionDateTime': null,
+  'schClosingMessageEnabled': false,
+  'schClosingMessage': null,
+  'schKeepOpenForTerm': null,
+  'schKeepOpenForInterval': null,
+  
+  'schRepeatEnabled': false,
+  'schRepeatEveryTerm': null,
+  'schRepeatEveryIntervalType': null,
+  'schRepeatUntil': null,
+  
+  'schLateSubmissionsEnabled': false,
+  'schLateSubmissionsForNextTerm': null,
+  'schLateSubmissionsForNextInterval': null
 });
 const genInitialReminder = () => ({
   'enabled':false,
@@ -45,10 +40,10 @@ const genInitialForm = () => ({
   snake: '',
   submissionReceivedEmails: [],
   reminder: genInitialReminder(),
-  schedule: genInitialSchedule(),
   userType: IdentityMode.TEAM,
   versions: [],
-  enableCopyExistingSubmission:false
+  enableCopyExistingSubmission:false,
+  ...genInitialSchedule()
 });
 
 /**
@@ -266,11 +261,7 @@ export default {
         data.idps = identityProviders.idps;
         data.userType = identityProviders.userType;
         data.sendSubRecieviedEmail = data.submissionReceivedEmails && data.submissionReceivedEmails.length;
-        data.schedule = {
-          ...genInitialSchedule(),
-          ...data.schedule
-        };
-
+      
         data.reminder = {
           ...genInitialReminder(),
           ...data.reminder
@@ -327,11 +318,30 @@ export default {
             ? state.form.submissionReceivedEmails
             : [];
 
-        const schedule = state.form.schedule.enabled ? {
-          ...state.form.schedule
-        } : {};
+        let schedule = {};
+        
+        if(state.form.schEnabled) {
+          schedule.schEnabled = state.form.schEnabled;
+          schedule.schType = state.form.schType;
+          schedule.schOpenSubmissionDateTime = state.form.schOpenSubmissionDateTime;
+          schedule.schCloseSubmissionDateTime = state.form.schCloseSubmissionDateTime;
+          schedule.schClosingMessageEnabled = state.form.schClosingMessageEnabled;
+          schedule.schClosingMessage = state.form.schClosingMessage;
+          schedule.schKeepOpenForTerm = state.form.schKeepOpenForTerm;
+          schedule.schKeepOpenForInterval = state.form.schKeepOpenForInterval;
 
-        const reminder = state.form.schedule.enabled ? {
+          schedule.schRepeatEnabled = state.form.schRepeatEnabled;
+          schedule.schRepeatEveryTerm = state.form.schRepeatEveryTerm;
+          schedule.schRepeatEveryIntervalType = state.form.schRepeatEveryIntervalType;
+          schedule.schRepeatUntil = state.form.schRepeatUntil;
+
+
+          schedule.schLateSubmissionsEnabled = state.form.schLateSubmissionsEnabled;
+          schedule.schLateSubmissionsForNextTerm = state.form.schLateSubmissionsForNextTerm;
+          schedule.schLateSubmissionsForNextInterval = state.form.schLateSubmissionsForNextInterval;
+        }
+
+        const reminder = state.form.schEnabled ? {
           ...state.form.reminder
         } : {};
 
@@ -346,7 +356,7 @@ export default {
           }),
           showSubmissionConfirmation: state.form.showSubmissionConfirmation,
           submissionReceivedEmails: emailList,
-          schedule: schedule,
+          ...schedule,
           reminder : reminder,
           enableCopyExistingSubmission: state.form.enableCopyExistingSubmission
         });
